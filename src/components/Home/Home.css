@@ -1,0 +1,44 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+   background-image: conic-gradient(red, yellow, green),
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; 
+}
+
+.card{
+    width: 250px;
+    height: 400px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.photo{
+    width: 80px;
+    border-radius: 10px;
+}
+
+.info{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card-btn{
+    background-color: aqua;
+}
+
+.home-container{
+    display: flex;
+}
+
+.card-container{
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+}
+
+
