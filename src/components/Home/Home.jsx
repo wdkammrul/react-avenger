@@ -3,11 +3,22 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css'
 import Cart from '../cart/Cart';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
 
     // ***** step-2 *****
     const [allActors, setAllActors] = useState([]);
+
+    // step-7 
+    const [selectedActors, setSelectedActors] = useState([]);
+
+    // step-15 
+    const [remaining, setRemaining] = useState(0);
+
+    // step-17 
+    const [totalCost, setTotalCost] = useState(0)
 
 
     // ***** step-1 ***** 
@@ -17,11 +28,61 @@ const Home = () => {
             .then(data => setAllActors(data))
     }, [])
 
-    console.log(allActors)
+    // console.log(allActors)
+
+    // step-4 
+    // step-6 receive actor
+    const handleSelectActor = (actor) => {
+        // console.log(actor)
+
+
+        // step-12 
+        const isExist = selectedActors.find((item) => item.id == actor.id);
+
+        let count = actor.salary;
+
+        if (isExist) {
+            return alert('already booked');
+        }
+        else {
+            // step-13 
+            selectedActors.forEach((item) => {
+                count = count + item.salary;
+            })
+
+            console.log(count)
+
+
+            // step-14 কতটাকা  আছে ।
+            const totalRemaining = 20000 - count;
+
+            // step-18 
+            // setTotalCost(count);
+
+            // step-25 
+            if (count > 20000) {
+                return alert('taka shes')
+            } else {
+                setTotalCost(count)
+                setRemaining(totalRemaining)
+                setSelectedActors([...selectedActors, actor]);
+            }
+
+
+            // step-16 
+            // setRemaining(totalRemaining)
+
+            // setSelectedActors([...selectedActors, actor]);
+        }
 
 
 
+        // step-8 আমি বুঝিনি ...selectedActors ।
+        // setSelectedActors([...selectedActors, actor]);
 
+    }
+
+    // console.log(selectedActors)
 
 
     return (
@@ -35,20 +96,34 @@ const Home = () => {
                             <div className="card-img">
                                 <img src={actor.image} alt="" />
                             </div>
-                            <h2>Altaf Mahmud</h2>
+                            <h2>{actor.name}</h2>
                             <p><small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, earum.</small></p>
                             <div className="info">
-                                <p>salary: 200</p>
-                                <p>Writter</p>
+                                <p>salary: {actor.salary}</p>
+                                <p>{actor.role}</p>
                             </div>
-                            <button>Select</button>
+
+                            {/* step-5 এই জায়গায় বুঝিনি ।  */}
+                            <button onClick={() => handleSelectActor(actor)} >Select</button>
                         </div>
                     ))
 
                     }
                 </div>
                 <div className="cart">
-                    <h1>this is cart</h1>
+                    {/* <h1>this is cart</h1> */}
+
+                    {/* step-9 send selectedActors */}
+                    <Cart
+                        selectedActors={selectedActors}
+                        // step-19 
+                        remaining={remaining}
+
+                        // step-21 
+                        totalCost={totalCost}
+
+
+                    ></Cart>
                 </div>
 
 
